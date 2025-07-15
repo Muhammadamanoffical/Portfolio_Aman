@@ -98,17 +98,55 @@
     html.classList.toggle('dark');
   });
 </script>
+<!-- Hero Section -->
+<section class="flex flex-col justify-center items-center h-[80vh] text-center px-4">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">Muhammad Aman</h2>
+    <p class="typewriter text-2xl md:text-3xl text-blue-500 font-semibold mb-6">
+        <span id="typing-text" class="text"></span>
+    </p>
+    <a href="#projects" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">View My Work</a>
+</section>
 
+<!-- Script placed after elements -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const typingText = document.getElementById('typing-text');
+        const phrases = ['Web Developer ', 'Data Science and AI '];
+        let i = 0, j = 0, isDeleting = false;
 
+        function type() {
+            const currentPhrase = phrases[i];
+            if (isDeleting) {
+                typingText.textContent = currentPhrase.substring(0, j--);
+            } else {
+                typingText.textContent = currentPhrase.substring(0, j++);
+            }
 
-    <!-- Hero -->
-    <section class="flex flex-col justify-center items-center h-[80vh] text-center px-4">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4">Muhammad Aman</h2>
-        <p class="typewriter text-2xl md:text-3xl text-blue-500 text font-semibold mb-6"><span id="typing-text"
-                class="text"></span></p>
-        <a href="#projects" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">View My
-            Work</a>
-    </section>
+            if (!isDeleting && j === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(type, 1200);
+            } else if (isDeleting && j === 0) {
+                isDeleting = false;
+                i = (i + 1) % phrases.length;
+                setTimeout(type, 200);
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+        }
+
+        // Start typing
+        type();
+
+        // Optional dark mode toggle if toggle button exists
+        const toggleButton = document.getElementById('toggle');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+            });
+        }
+    });
+</script>
+
     <!-- About Section -->
     <section id="about" class="py-16 px-6 max-w-6xl mx-auto">
         <div class="flex flex-col md:flex-row items-center md:items-start gap-10">
@@ -604,42 +642,6 @@
    <i class="bi bi-arrow-up fs-4"></i>
 </a>
 
- 
-
-
-
-    <!-- JavaScript -->
-    <script>
-        const typingText = document.getElementById('typing-text');
-        const phrases = ['Web Developer  ', 'Data Science and Ai  '];
-        let i = 0, j = 0, isDeleting = false;
-
-        function type() {
-            const currentPhrase = phrases[i];
-            if (isDeleting) {
-                typingText.textContent = currentPhrase.substring(0, j--);
-            } else {
-                typingText.textContent = currentPhrase.substring(0, j++);
-            }
-
-            if (!isDeleting && j === currentPhrase.length) {
-                isDeleting = true;
-                setTimeout(type, 1200);
-            } else if (isDeleting && j === 0) {
-                isDeleting = false;
-                i = (i + 1) % phrases.length;
-                setTimeout(type, 200);
-            } else {
-                setTimeout(type, isDeleting ? 50 : 100);
-            }
-        }
-
-        document.getElementById('toggle').addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-        });
-
-        window.onload = type;
-    </script>
 </body>
 
 </html>
